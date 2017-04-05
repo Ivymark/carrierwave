@@ -191,7 +191,7 @@ module CarrierWave
             local_directory = connection.directories.new(:key => @uploader.fog_directory)
             local_file = local_directory.files.new(:key => path)
             if options and options[:expires]
-              expire_at = ::Fog::Time.now + options[:expires].httpdate
+              expire_at = options[:expires]
             else
               expire_at = ::Fog::Time.now + @uploader.fog_authenticated_url_expiration
             end
