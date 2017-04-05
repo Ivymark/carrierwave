@@ -190,7 +190,12 @@ module CarrierWave
             # avoid a get by using local references
             local_directory = connection.directories.new(:key => @uploader.fog_directory)
             local_file = local_directory.files.new(:key => path)
-            expire_at = ::Fog::Time.now + @uploader.fog_authenticated_url_expiration
+            if options and options[:expires]
+              expire_at = ::Fog::Time.now + options[:expires].httpdate
+            else
+              expire_at = ::Fog::Time.now + @uploader.fog_authenticated_url_expiration
+            end
+
             case @uploader.fog_credentials[:provider]
               when 'AWS'
                 local_file.url(expire_at, options)
