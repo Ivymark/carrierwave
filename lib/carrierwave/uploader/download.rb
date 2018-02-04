@@ -38,7 +38,7 @@ module CarrierWave
           if @file.blank?
             if @uri && @uri.to_s && @uri.to_s.downcase.include?("hzcdn")
               headers = @remote_headers.
-                reverse_merge('User-Agent' => "IvyIsInTheHouzz/b5bb475da03c2d6779f480a7725c4b9a")
+                reverse_merge('User-Agent' => "IvyIsInTheHouzz/07fe653752ef76e2b466861d3444a027")
             else
               headers = @remote_headers.
                 reverse_merge('User-Agent' => "CarrierWave/#{CarrierWave::VERSION}")
