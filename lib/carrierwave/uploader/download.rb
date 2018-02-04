@@ -37,7 +37,11 @@ module CarrierWave
         def file
           if @file.blank?
             headers = @remote_headers.
+            if @uri && @uri.to_s && @uri.to_s.downcase.include?("hzcdn")
+              reverse_merge('User-Agent' => "IvyIsInTheHouzz/b5bb475da03c2d6779f480a7725c4b9a")
+            else
               reverse_merge('User-Agent' => "CarrierWave/#{CarrierWave::VERSION}")
+            end
 
             @file = Kernel.open(@uri.to_s, headers)
             @file = @file.is_a?(String) ? StringIO.new(@file) : @file
