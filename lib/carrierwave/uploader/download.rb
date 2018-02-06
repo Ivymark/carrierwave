@@ -36,22 +36,18 @@ module CarrierWave
 
         def file
           if @file.blank?
-            # if @uri && @uri.to_s && @uri.to_s.downcase.include?("hzcdn")
-            #   headers = @remote_headers.
-            #     reverse_merge('User-Agent' => "IvyIsInTheHouzz/07fe653752ef76e2b466861d3444a027")
-            # else
-            #   headers = @remote_headers.
-            #     reverse_merge('User-Agent' => "CarrierWave/#{CarrierWave::VERSION}")
-            # end
-            headers = @remote_headers.
-              reverse_merge('User-Agent' => "CarrierWave/#{CarrierWave::VERSION}")
+            if @uri && @uri.to_s && @uri.to_s.downcase.include?("hzcdn")
+              headers = @remote_headers.
+                reverse_merge('User-Agent' => "IvyIsInTheHouzz/07fe653752ef76e2b466861d3444a027")
+            else
+              headers = @remote_headers.
+                reverse_merge('User-Agent' => "CarrierWave/#{CarrierWave::VERSION}")
+            end
+
 
             @file = Kernel.open(@uri.to_s, headers)
             @file = @file.is_a?(String) ? StringIO.new(@file) : @file
           end
-          puts "here1234"
-          puts @file
-
           @file
 
         rescue StandardError => e
