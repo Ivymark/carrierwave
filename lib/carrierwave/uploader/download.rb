@@ -48,6 +48,9 @@ module CarrierWave
             @file = Kernel.open(@uri.to_s, headers)
             @file = @file.is_a?(String) ? StringIO.new(@file) : @file
           end
+          puts "here1234"
+          puts @file
+          
           @file
 
         rescue StandardError => e
